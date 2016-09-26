@@ -53,7 +53,13 @@ if __name__=="__main__":
     while not done:
         for feed in MY_FEEDS:
             d = feedparser.parse(feed)
-            most_recent = d['entries'][0]
+            
+            try:
+                most_recent = d['entries'][0]
+                
+            except:
+                continue
+            
             this_title = most_recent['title']            
             
             ## If this is true, the feed hasn't changed
