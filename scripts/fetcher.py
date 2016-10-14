@@ -83,3 +83,9 @@ if __name__=="__main__":
                         store_info(entry)
 
         initialized=True
+        
+        hour = datetime.datetime.now().time().hour
+        
+        ## Nasdaq closes at 4 pm = 16 EST = 21 UTC, so kill ourselves then
+        if hour >= 21:
+            done = True
