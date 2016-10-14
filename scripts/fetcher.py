@@ -30,10 +30,10 @@ def store_info(entry):
     now = str(datetime.datetime.now())
     
     f = open(TODAY + ".csv", "a")
-    f.write(now + ",")
-    f.write(entry["title"].encode('ascii', 'ignore') + ",")
-    f.write(entry["summary"].encode('ascii', 'ignore') + ",")
-    f.write(entry["link"].encode('ascii', 'ignore') +"\n")
+    f.write(now + "|")
+    f.write(entry["title"].encode('ascii', 'ignore') + "|")
+    f.write(entry["summary"].encode('ascii', 'ignore') + "|")
+    f.write(entry["link"].encode('ascii', 'ignore') +"}")
     f.close()
     
     return
@@ -44,11 +44,12 @@ if __name__=="__main__":
     ## Main function loop
 
     f = open(TODAY+".csv", "w")
-    f.write("timestamp,title,summary,link\n")
+    f.write("timestamp,title,summary,link}")
 
     last_title = {feed : '' for feed in MY_FEEDS}
     
     done = False    
+    initialized=False
     
     while not done:
         for feed in MY_FEEDS:
@@ -73,16 +74,12 @@ if __name__=="__main__":
                 for entry in d["entries"]:
                     
                     ## Check if we already have this one
-                    if entry["title"] in saved_titles:
+                    if entry["title"] in saved_titles or not initialized:
                         continue
                     
                     ## Save the information
                     else:
                         saved_titles += entry["title"]
                         store_info(entry)
-        
-        hour = datetime.datetime.now().time().hour
-        
-        ## Nasdaq closes at 4 pm, so kill ourselves then
-        if hour >= 16:
-            done = True
+
+        initialized=True
