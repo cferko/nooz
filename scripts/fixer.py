@@ -40,4 +40,5 @@ if __name__=="__main__":
                 and csv.split(".")[0]+"_fixed.csv" not in these_csvs]
     
     for thing in unfixed:
+        print "trying to fix", thing
         fix(thing)
