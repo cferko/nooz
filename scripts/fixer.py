@@ -31,7 +31,7 @@ def fix(my_filename):
     
     new_name = my_filename.split(".csv")[0] + "_fixed.csv"
     
-    unfixed_csv.to_csv(new_name)
+    unfixed_csv.to_csv(new_name, sep='|', lineterminator='}', header=None)
 
     return
 
