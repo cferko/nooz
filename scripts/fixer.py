@@ -29,7 +29,7 @@ def fix(my_filename):
     ## Get rid of duplicates
     unfixed_csv = unfixed_csv.drop_duplicates(subset=range(1, n_cols))
     
-    new_name = my_filename.split(".")[0] + "_fixed.csv"
+    new_name = my_filename.split(".csv")[0] + "_fixed.csv"
     
     unfixed_csv.to_csv(new_name)
 
@@ -38,7 +38,7 @@ def fix(my_filename):
 if __name__=="__main__":
     these_csvs = glob.glob("./*.csv")
     unfixed = [csv for csv in these_csvs if "fixed" not in csv 
-                and csv.split(".")[0]+"_fixed.csv" not in these_csvs]
+                and csv.split(".csv")[0]+"_fixed.csv" not in these_csvs]
     
     for thing in unfixed:
         print "trying to fix", thing
