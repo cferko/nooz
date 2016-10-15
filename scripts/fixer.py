@@ -26,7 +26,7 @@ def fix(my_filename):
     
     n_cols = len(unfixed_csv.columns)
     ## Get rid of duplicates
-    unfixed_csv = unfixed_csv.drop_duplicates(subset=[1:n_cols])
+    unfixed_csv = unfixed_csv.drop_duplicates(subset=range(1, n_cols))
     
     new_name = my_filename.split(".")[0] + "_fixed.csv"
     
