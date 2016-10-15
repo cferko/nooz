@@ -1,7 +1,7 @@
 import pandas as pd, numpy as np, dateutil, glob
 
 def split(my_fixed_file):
-    unfixed_csv = pd.read_csv(my_filename, sep='|',
+    unfixed_csv = pd.read_csv(my_fixed_file, sep='|',
                               lineterminator='}',
                               header=None,
                               error_bad_lines = False)
