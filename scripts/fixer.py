@@ -37,7 +37,7 @@ def fix(my_filename):
 if __name__=="__main__":
     these_csvs = glob.glob("./*.csv")
     unfixed = [csv for csv in these_csvs if "fixed" not in csv 
-                and csv.split(".")+"_fixed.csv" not in these_csvs]
+                and csv.split(".")[0]+"_fixed.csv" not in these_csvs]
     
     for thing in unfixed:
         fix(thing)
