@@ -19,7 +19,8 @@ def fix(my_filename):
     """
     unfixed_csv = pd.read_csv(my_filename, sep='|',
                               lineterminator='}',
-                              header=None)
+                              header=None,
+                              error_bad_lines = False)
 
     fixed_timestamps = unfixed_csv[0].apply(lambda row: GMT_to_EST(row))
     unfixed_csv[0] = fixed_timestamps
