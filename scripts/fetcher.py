@@ -29,7 +29,7 @@ def store_info(entry):
     
     now = str(datetime.datetime.now())
     
-    f = open(TODAY + ".csv", "a")
+    f = open("/home/cferko/nooz/scripts/"+TODAY + ".csv", "a")
     f.write(now + "|")
     f.write(entry["title"].encode('ascii', 'ignore') + "|")
     f.write(entry["summary"].encode('ascii', 'ignore') + "|")
@@ -43,14 +43,13 @@ saved_titles = []
 if __name__=="__main__":
     ## Main function loop
 
-    f = open(TODAY+".csv", "w")
+    f = open("/home/cferko/nooz/scripts/"+TODAY+".csv", "w")
     f.write("timestamp,title,summary,link}")
 
     last_title = {feed : '' for feed in MY_FEEDS}
     
     done = False    
-    #initialized = False
-    initialized=True
+    initialized = False
     
     while not done:
         for feed in MY_FEEDS:
@@ -86,8 +85,8 @@ if __name__=="__main__":
         initialized=True
         
         hour = datetime.datetime.now().time().hour
-        print "hour: ", hour
+
         
-#        ## Nasdaq closes at 4 pm = 16 EST = 21 UTC, so kill ourselves then
-#        if hour >= 21:
-#            done = True
+        ## Nasdaq closes at 4 pm = 16 EST = 21 UTC, so kill ourselves then
+        if hour >= 21:
+            done = True
