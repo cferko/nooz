@@ -27,25 +27,12 @@ def get_feature_frame(df):
     
     return out
 
-def process(line):
-    naive_split = line.split(',')
-    try:
-        timestamp = dateutil.parser.parse(naive_split[0])
-    except:
-        print "failed on", line
-        raise Exception
-    title = naive_split[1]
-    url = naive_split[-1]
-    summary = string.join(naive_split[2:-1])
-    
-    ## Server saves GMT by default but we're five hours behind
-    
+def process_time_string(time_string):
+    timestamp = dateutil.parser.parse(time_string)
     time_adjusted = timestamp - datetime.timedelta(hours=5)
     time_adjusted = unix_time_millis(time_adjusted)    
     
-    new_line = str(time_adjusted) + '|' + title + '|' + summary + '|' + url
-    
-    return new_line
+    return time_adjusted
     
 if __name__ == "__main__":
     ## Process all unfixed files
@@ -54,22 +41,12 @@ if __name__ == "__main__":
     raw_files = [f for f in raw_files if "fixed" not in f]
 
     for f in raw_files:
-        this_file = open(f, "r")
-        new_file = open(f+"_fixed.csv", "w")
-        for line in this_file.readlines():
-            try:
-                new_file.write(process(line)+"\n")
-            except:
-                print f
-        this_file.close()
-        new_file.close() 
+        this_frame = pd.read_csv(f, sep="|", lineterminator="}")
         
-    fixed_files = glob.glob("./*_fixed.csv")
-    for f in fixed_files:
-        this_frame = pd.read_csv(f)
+        this_frame["timestamp"] = this_frame["timestamp"].apply(lambda x: process_time_string(x))        
         features = get_feature_frame(this_frame)
         
-        name = f.split("/")[1].split("_")[0]
+        name = f.split("/")[1].split(".csv")[0]
         features.to_csv(name+"_features.csv")
         
     

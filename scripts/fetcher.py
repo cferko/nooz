@@ -49,7 +49,8 @@ if __name__=="__main__":
     last_title = {feed : '' for feed in MY_FEEDS}
     
     done = False    
-    initialized=False
+    #initialized = False
+    initialized=True
     
     while not done:
         for feed in MY_FEEDS:
@@ -85,7 +86,8 @@ if __name__=="__main__":
         initialized=True
         
         hour = datetime.datetime.now().time().hour
+        print "hour: ", hour
         
-        ## Nasdaq closes at 4 pm = 16 EST = 21 UTC, so kill ourselves then
-        if hour >= 21:
-            done = True
+#        ## Nasdaq closes at 4 pm = 16 EST = 21 UTC, so kill ourselves then
+#        if hour >= 21:
+#            done = True
