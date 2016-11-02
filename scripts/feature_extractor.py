@@ -23,7 +23,7 @@ def get_feature_frame(df):
     my_cv = CountVectorizer()
     X = my_cv.fit_transform(my_text)
     
-    out = pd.concat( (df, pd.DataFrame(X)), axis=1)
+    out = pd.concat( (df, pd.DataFrame(X.todense())), axis=1)
     
     return out
 
