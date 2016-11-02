@@ -28,11 +28,14 @@ def get_feature_frame(df):
     return out
 
 def process_time_string(time_string):
-    timestamp = dateutil.parser.parse(time_string)
-    time_adjusted = timestamp - datetime.timedelta(hours=5)
-    time_adjusted = unix_time_millis(time_adjusted)    
-    
-    return time_adjusted
+    try:
+        timestamp = dateutil.parser.parse(time_string)
+        time_adjusted = timestamp - datetime.timedelta(hours=5)
+        time_adjusted = unix_time_millis(time_adjusted)    
+        
+        return time_adjusted
+    execept:
+        return 0
     
 if __name__ == "__main__":
     ## Process all unfixed files
