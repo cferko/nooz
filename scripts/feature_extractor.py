@@ -19,7 +19,7 @@ def clean_text( summary ):
     return( " ".join( meaningful_words ))   
 
 def get_feature_frame(df):
-    my_text = [clean_text(summary) for summary in my_frame["summary"].values]
+    my_text = [clean_text(summary) for summary in df["summary"].values]
     my_cv = CountVectorizer()
     X = my_cv.fit_transform(my_text)
     
@@ -41,7 +41,8 @@ if __name__ == "__main__":
     raw_files = [f for f in raw_files if "fixed" not in f]
 
     for f in raw_files:
-        this_frame = pd.read_csv(f, sep="|", lineterminator="}")
+        this_frame = pd.read_csv(f, sep="|", lineterminator="}", header=None,
+                                 names=["timestamp", "title", "summary", "url"])
         
         this_frame["timestamp"] = this_frame["timestamp"].apply(lambda x: process_time_string(x))        
         features = get_feature_frame(this_frame)
